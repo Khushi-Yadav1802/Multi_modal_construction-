@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multimodal Construction Intelligence Platform</title>
+  <meta name="description" content="AI-powered construction site safety, crack diagnostics, project valuation and smart site assistant." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ SIDEBAR ══ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">🏗️</span>
+    <div>
+      <div class="logo-title">Construction Intelligence</div>
+      <div class="logo-sub">Skill Wallet Capstone · Project 1</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">🔑 Gemini API Key</div>
+    <input type="password" id="apiKeyInput" placeholder="AIza... (leave blank for demo)"
+           class="api-input" autocomplete="off" />
+    <div id="apiStatus" class="api-status demo">⚡ Demo Mode</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">🏛️ Tech Stack</div>
+    <div class="arch-list">
+      <div class="arch-node">🧠 Gemini 1.5 Flash Vision</div>
+      <div class="arch-node">⚡ FastAPI Backend</div>
+      <div class="arch-node">🎨 Pollinations AI Renders</div>
+      <div class="arch-node">🌐 Vanilla JS Frontend</div>
+      <div class="arch-node">📦 Zero Database</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">📂 Modules</div>
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-tab="safety">🦺 PPE Audit</button>
+      <button class="nav-btn" data-tab="crack">🔬 Crack Diagnostics</button>
+      <button class="nav-btn" data-tab="planning">💰 Planning & Valuation</button>
+      <button class="nav-btn" data-tab="assistant">🤖 Site Assistant</button>
+    </nav>
+  </div>
+
+  <div class="sidebar-footer">
+    OSHA 29 CFR 1926 · IS 456:2000 · NBC 2016<br>IS 13920 · ACI 318<br>
+    <span style="color:#1e293b;">© 2025 Skill Wallet Capstone</span>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════════════════════════ MAIN ═══════ -->
+<main class="main-content">
+
+  <!-- App Header -->
+  <header class="app-header">
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">☰</button>
+    <div class="header-title">
+      <h1>🏗️ Multimodal Construction Intelligence Platform</h1>
+      <p>AI-Powered Site Safety · Structural Diagnostics · Financial Planning · Smart Advisory</p>
+    </div>
+    <div class="header-badge" id="modeBadge">⚡ Demo Mode</div>
+  </header>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="safety">🦺 Site Safety & PPE Audit</button>
+    <button class="tab-btn" data-tab="crack">🔬 Crack Diagnostics</button>
+    <button class="tab-btn" data-tab="planning">💰 Planning & Valuation</button>
+    <button class="tab-btn" data-tab="assistant">🤖 Site Assistant</button>
+  </div>
+
+  <!-- ═══ TAB 1: SAFETY ═══════════════════════════════════════════════════ -->
+  <section class="tab-panel active" id="tab-safety">
+    <div class="hero-banner">
+      <h2 class="hero-title">🦺 Site Safety & PPE Audit</h2>
+      <p class="hero-sub">Multimodal AI analysis against OSHA 29 CFR 1926 & IS 456:2000 standards</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-left">
+        <div class="upload-zone" id="safetyUploadZone">
+          <input type="file" id="safetyFile" accept=".jpg,.jpeg,.png" hidden />
+          <div class="upload-icon">📸</div>
+          <div class="upload-text">Drop site photo here or <span class="upload-link">browse</span></div>
+          <div class="upload-hint">JPG, PNG · Max 10 MB</div>
+        </div>
+        <div id="safetyPreview" class="img-preview hidden"></div>
+      </div>
+      <div class="col-right">
+        <div class="controls-card">
+          <button class="btn-primary full-width" id="runSafetyBtn">🔍 Run PPE Audit</button>
+          <div class="checklist-title">Analysis Covers:</div>
+          <ul class="feature-list">
+            <li>🪖 Hard Hat</li><li>🦺 High-Vis Vest</li>
+            <li>👢 Steel-Toe Boots</li><li>🔗 Safety Harness</li>
+            <li>🧤 Safety Gloves</li><li>🥽 Eye Protection</li>
+          </ul>
+          <div class="standards-note">References: OSHA 29 CFR 1926 · IS 456:2000 · NBC 2016</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="safetyLoading" class="loading-bar hidden">
+      <div class="loading-fill"></div>
+      <span>Analysing with Gemini Vision...</span>
+    </div>
+
+    <div id="safetyResults" class="results-section hidden"></div>
+  </section>
+
+  <!-- ═══ TAB 2: CRACK ════════════════════════════════════════════════════ -->
+  <section class="tab-panel" id="tab-crack">
+    <div class="hero-banner" style="--hero-from:#1a3a2a; --hero-to:#0d2a1a;">
+      <h2 class="hero-title" style="background: linear-gradient(135deg,#34d399,#10b981,#6ee7b7); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">🔬 Crack Diagnostics & Structural Integrity</h2>
+      <p class="hero-sub">Defect classification per IS 456:2000, IS 13920 & ACI 318 repair protocols</p>
+    </div>
+
+    <div class="two-col">
+      <div class="col-left">
+        <div class="upload-zone" id="crackUploadZone">
+          <input type="file" id="crackFile" accept=".jpg,.jpeg,.png" hidden />
+          <div class="upload-icon">🔬</div>
+          <div class="upload-text">Drop surface photo here or <span class="upload-link">browse</span></div>
+          <div class="upload-hint">Close-up with scale reference gives best results</div>
+        </div>
+        <div id="crackPreview" class="img-preview hidden"></div>
+      </div>
+      <div class="col-right">
+        <div class="controls-card">
+          <button class="btn-primary full-width" id="runCrackBtn" style="background:linear-gradient(135deg,#059669,#10b981);">🔍 Analyse Crack</button>
+          <div class="checklist-title">Detectable Defects:</div>
+          <ul class="feature-list">
+            <li>🔸 Hairline Crack</li><li>🔸 Settlement Crack</li>
+            <li>🔸 Structural Shear</li><li>🔸 Thermal Expansion</li>
+            <li>🔸 Spalling</li><li>🔸 Corrosion Staining</li>
+          </ul>
+          <div class="standards-note">IS 456 · IS 13920 · ACI 318 · IS 15988</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="crackLoading" class="loading-bar hidden">
+      <div class="loading-fill" style="background:linear-gradient(90deg,#059669,#10b981,#34d399);"></div>
+      <span>Running structural defect analysis...</span>
+    </div>
+
+    <div id="crackResults" class="results-section hidden"></div>
+  </section>
+
+  <!-- ═══ TAB 3: PLANNING ═════════════════════════════════════════════════ -->
+  <section class="tab-panel" id="tab-planning">
+    <div class="hero-banner" style="--hero-from:#2a1a3a; --hero-to:#1a0d2a;">
+      <h2 class="hero-title" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6,#c4b5fd); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">💰 Planning & Real Estate Valuation</h2>
+      <p class="hero-sub">Budget estimation · INR asset valuation · Steel & cement metrics · 3D architectural renders</p>
+    </div>
+
+    <div class="planning-grid">
+      <div class="planning-inputs card">
+        <h3 class="card-title">📋 Project Parameters</h3>
+        <div class="form-group">
+          <label>Project Name</label>
+          <input type="text" id="projName" value="Sunrise Heights Phase 1" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label>Structure Type</label>
+          <select id="structType" class="form-input">
+            <option>Residential Villa (G+1)</option>
+            <option>Residential Apartment (G+4)</option>
+            <option>Commercial Office (G+10)</option>
+            <option>Industrial Warehouse</option>
+            <option>Infrastructure Bridge</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Built-Up Area (sq ft)</label>
+          <input type="number" id="sqft" value="2500" min="500" max="500000" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label>Location Tier</label>
+          <select id="location" class="form-input">
+            <option>Tier 1 (Mumbai/Delhi/Bangalore)</option>
+            <option>Tier 2 (Pune/Hyderabad/Chennai)</option>
+            <option>Tier 3 (Other Cities)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Completion: <span id="completionVal">45</span>%</label>
+          <input type="range" id="completion" min="0" max="100" value="45" class="form-range" />
+        </div>
+        <button class="btn-primary full-width" id="calcBtn" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6);">📊 Calculate & Analyse</button>
+      </div>
+
+      <div class="planning-results" id="planningResults">
+        <div class="placeholder-card">
+          <div class="placeholder-icon">💰</div>
+          <div class="placeholder-text">Configure project parameters and click Calculate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Render Section -->
+    <div class="render-section">
+      <h3 class="section-title">🎨 Conceptual 3D Architectural Rendering</h3>
+      <p class="render-note">Powered by <strong>Pollinations AI</strong> — photorealistic concept renders from your project inputs</p>
+      <div class="render-grid">
+        <div class="render-controls">
+          <div class="form-group">
+            <label>Rendering Style</label>
+            <select id="renderStyle" class="form-input">
+              <option>Photorealistic Exterior</option>
+              <option>Architectural Blueprint</option>
+              <option>Night Illumination</option>
+              <option>Aerial Bird's Eye View</option>
+              <option>Interior Lobby Concept</option>
+            </select>
+          </div>
+          <button class="btn-primary full-width" id="genRenderBtn" style="background:linear-gradient(135deg,#d97706,#f59e0b);">🎨 Generate 3D Render</button>
+          <div id="renderStatus" class="render-status hidden"></div>
+        </div>
+        <div class="render-output" id="renderOutput">
+          <div class="placeholder-card">
+            <div class="placeholder-icon">🏛️</div>
+            <div class="placeholder-text">Select style and click Generate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TAB 4: ASSISTANT ════════════════════════════════════════════════ -->
+  <section class="tab-panel" id="tab-assistant">
+    <div class="hero-banner" style="--hero-from:#1a2a3a; --hero-to:#0d1a2a;">
+      <h2 class="hero-title" style="background:linear-gradient(135deg,#38bdf8,#0ea5e9,#7dd3fc); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">🤖 Daily Site Assistant & Weather Advisory</h2>
+      <p class="hero-sub">Real-time weather-aware safety alerts · Multi-turn construction engineering chatbot</p>
+    </div>
+
+    <div class="assistant-grid">
+      <!-- Weather Panel -->
+      <div class="weather-panel">
+        <h3 class="section-title">🌤️ Weather Advisory</h3>
+        <div class="weather-selector">
+          <button class="weather-btn active" data-weather="Normal Conditions">☀️ Normal</button>
+          <button class="weather-btn" data-weather="High Wind (>50 km/h)">💨 High Wind</button>
+          <button class="weather-btn" data-weather="Heavy Rain / Flooding">🌧️ Heavy Rain</button>
+          <button class="weather-btn" data-weather="Extreme Heat (>42°C)">🌡️ Extreme Heat</button>
+        </div>
+        <div id="weatherAdvisory" class="weather-advisory"></div>
+
+        <!-- Quick Prompts -->
+        <h3 class="section-title" style="margin-top:1.5rem;">⚡ Quick Queries</h3>
+        <div class="quick-prompts">
+          <button class="quick-btn" data-q="What is the minimum cover for concrete as per IS 456?">IS 456 cover requirements</button>
+          <button class="quick-btn" data-q="How to calculate beam reinforcement for M25 concrete?">Beam reinforcement calc</button>
+          <button class="quick-btn" data-q="OSHA requirements for scaffold erection">OSHA scaffold rules</button>
+          <button class="quick-btn" data-q="What is the concrete curing duration for different grades?">Concrete curing duration</button>
+          <button class="quick-btn" data-q="How to calculate pile load capacity?">Pile load capacity</button>
+          <button class="quick-btn" data-q="Safety checklist for formwork removal">Formwork removal checklist</button>
+        </div>
+      </div>
+
+      <!-- Chatbot Panel -->
+      <div class="chat-panel">
+        <div class="chat-header">
+          <span>💬 Construction Engineering Assistant</span>
+          <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg assistant">
+            <div class="msg-bubble">
+              👋 Hello! I'm your <strong>Construction Engineering Assistant</strong>.<br><br>
+              I can help with structural calculations, IS code references, material specifications,
+              site safety protocols, OSHA standards, and project management queries.<br><br>
+              What would you like to know?
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-row">
+          <textarea id="chatInput" class="chat-input" placeholder="Ask a construction engineering question..." rows="2"></textarea>
+          <button class="btn-send" id="sendBtn">➤</button>
+        </div>
+        <div id="chatLoading" class="chat-loading hidden">🤖 Thinking...</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
